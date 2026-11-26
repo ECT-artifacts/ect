@@ -1,0 +1,46 @@
+2000 accounts, 3 payments per account per epoch, 0.5% of entries traced, 25 epochs
+  sender, h=10               reach   80.0 accounts, chain 10.2 payments, fullest depth  19551 contributions,  26 distinct traced, noise terms  456631
+  cap K=59, h=10             reach   32.0 accounts, chain  5.0 payments, fullest depth     59 contributions,   3 distinct traced, noise terms    2242
+      recipient degraded in 8.5% of payments
+  cap K=1024, h=10           reach   59.1 accounts, chain  7.3 payments, fullest depth   1020 contributions,  11 distinct traced, noise terms   27126
+      recipient degraded in 0.6% of payments
+  both, h=6                  reach    6.1 accounts, chain  1.9 payments, fullest depth      9 contributions,   2 distinct traced, noise terms     118
+      depth t has at most 2^t contributions: True; noise terms at most 3(2^h - 1): True
+  both, h=7                  reach    7.7 accounts, chain  2.2 payments, fullest depth     11 contributions,   2 distinct traced, noise terms     179
+      depth t has at most 2^t contributions: True; noise terms at most 3(2^h - 1): True
+  both, h=8                  reach    9.5 accounts, chain  2.6 payments, fullest depth     13 contributions,   2 distinct traced, noise terms     271
+      depth t has at most 2^t contributions: True; noise terms at most 3(2^h - 1): True
+  both, h=10                 reach   14.4 accounts, chain  3.2 payments, fullest depth     19 contributions,   2 distinct traced, noise terms     526
+      depth t has at most 2^t contributions: True; noise terms at most 3(2^h - 1): True
+  both, h=12                 reach   20.5 accounts, chain  3.8 payments, fullest depth     27 contributions,   2 distinct traced, noise terms     928
+      depth t has at most 2^t contributions: True; noise terms at most 3(2^h - 1): True
+  both, h=14                 reach   29.3 accounts, chain  4.5 payments, fullest depth     46 contributions,   2 distinct traced, noise terms    1554
+      depth t has at most 2^t contributions: True; noise terms at most 3(2^h - 1): True
+  both, h=16                 reach   43.2 accounts, chain  5.4 payments, fullest depth     75 contributions,   2 distinct traced, noise terms    2567
+      depth t has at most 2^t contributions: True; noise terms at most 3(2^h - 1): True
+  sender, h=6                reach   15.7 accounts, chain  4.3 payments, fullest depth   2256 contributions,  13 distinct traced, noise terms   47418
+  sender, h=7                reach   24.3 accounts, chain  5.4 payments, fullest depth   3777 contributions,  15 distinct traced, noise terms   86019
+  sender, h=8                reach   36.8 accounts, chain  6.7 payments, fullest depth   6661 contributions,  20 distinct traced, noise terms  151275
+2000 accounts, 1 payments per account per epoch, 0.5% of entries traced, 25 epochs
+  sender, h=10               reach   23.0 accounts, chain  5.3 payments, fullest depth   7569 contributions,  32 distinct traced, noise terms  118072
+  cap K=59, h=10             reach   13.5 accounts, chain  3.4 payments, fullest depth     59 contributions,   4 distinct traced, noise terms    1733
+      recipient degraded in 7.6% of payments
+  cap K=1024, h=10           reach   20.1 accounts, chain  4.7 payments, fullest depth   1020 contributions,  10 distinct traced, noise terms   24193
+      recipient degraded in 0.3% of payments
+  both, h=6                  reach    4.0 accounts, chain  1.4 payments, fullest depth     10 contributions,   2 distinct traced, noise terms     113
+      depth t has at most 2^t contributions: True; noise terms at most 3(2^h - 1): True
+  both, h=7                  reach    4.9 accounts, chain  1.6 payments, fullest depth     13 contributions,   2 distinct traced, noise terms     171
+      depth t has at most 2^t contributions: True; noise terms at most 3(2^h - 1): True
+  both, h=8                  reach    5.7 accounts, chain  1.9 payments, fullest depth     14 contributions,   2 distinct traced, noise terms     239
+      depth t has at most 2^t contributions: True; noise terms at most 3(2^h - 1): True
+  both, h=10                 reach    7.9 accounts, chain  2.3 payments, fullest depth     25 contributions,   2 distinct traced, noise terms     432
+      depth t has at most 2^t contributions: True; noise terms at most 3(2^h - 1): True
+  both, h=12                 reach   11.0 accounts, chain  2.8 payments, fullest depth     35 contributions,   2 distinct traced, noise terms     714
+      depth t has at most 2^t contributions: True; noise terms at most 3(2^h - 1): True
+  both, h=14                 reach   15.5 accounts, chain  3.4 payments, fullest depth     45 contributions,   3 distinct traced, noise terms    1090
+      depth t has at most 2^t contributions: True; noise terms at most 3(2^h - 1): True
+  both, h=16                 reach   21.0 accounts, chain  4.0 payments, fullest depth     62 contributions,   3 distinct traced, noise terms    1717
+      depth t has at most 2^t contributions: True; noise terms at most 3(2^h - 1): True
+  sender, h=6                reach    6.7 accounts, chain  2.5 payments, fullest depth   1495 contributions,  17 distinct traced, noise terms   21997
+  sender, h=7                reach    9.4 accounts, chain  3.1 payments, fullest depth   2096 contributions,  17 distinct traced, noise terms   33404
+  sender, h=8                reach   13.0 accounts, chain  3.7 payments, fullest depth   3107 contributions,  26 distinct traced, noise terms   49570

@@ -1,0 +1,161 @@
+make[2]: Entering directory 'src'
+./test_eg_board
+exponential ElGamal board: h=10 n=28 |p|=3072
+ok    two merges of the same inputs differ
+ok    both merges trace two identifiers
+ok    a nonzero entry verifies for each of the 28 identifiers
+ok    a zero entry verifies
+ok    an entry verified at another position is rejected
+ok    an entry changed to encrypt 2 m_3 is rejected
+ok    a modified response is rejected
+ok    a modified first message is rejected
+ok    an entry outside the subgroup is rejected
+ok    a zero entry with a bit ciphertext of 1 is rejected
+ok    a bit ciphertext outside the subgroup is rejected
+ok    board count c = 3
+ok    honest board verifies on one thread
+ok    honest board verifies on four threads
+ok    board with count c+1 is rejected
+ok    board with another root is rejected
+ok    board with a changed signature is rejected
+ok    a valid entry that is not under the signed root is rejected
+ok    count proof over a changed bit ciphertext is rejected
+ok    recomputed board verifies
+PASSED: 0 failure(s)
+./test_dj_board
+Damgard-Jurik board: h=10 |N|=384 n=42
+ok    a nonzero entry verifies for each of the 42 identifiers
+ok    a zero entry verifies
+ok    an entry verified at another position is rejected
+ok    an entry changed to encrypt 2 m_3 is rejected
+ok    a modified response is rejected
+ok    a zero entry with a bit ciphertext of 1 is rejected
+ok    a bit ciphertext that is not a unit is rejected
+ok    board count c = 3
+ok    honest board verifies on one thread
+ok    honest board verifies on four threads
+ok    board with count c+1 is rejected
+ok    board with another root is rejected
+ok    board with a changed signature is rejected
+ok    a valid entry that is not under the signed root is rejected
+ok    count proof over a changed bit ciphertext is rejected
+ok    recomputed board verifies
+PASSED: 0 failure(s)
+./test_rlwe 2048 16 36 1 1 32
+Ring-LWE: N0=2048 h=16 t=65537 log2Q=36 (1 primes) d=1 L=32 tag=294912 bytes
+ok    Q > 2t(B_L + 1): log2 Q = 36.00, log2 B_L = 18.87
+ok    Dec(Enc(m)) = m, noise margin 7.7 bits
+ok    issuance signature verifies (ML-DSA-44, 2420 bytes)
+ok    signature on a modified tag is rejected
+ok    h'=16: id_5 traced after k = 0..15 hops
+ok    h'=16: Trace returns bottom after k = 16 and 17 hops
+ok    h'=8: id_5 traced after k = 0..7 hops
+ok    h'=8: Trace returns bottom after k = 8 and 9 hops
+ok    Merge(live id_7, expired id_9, dummy, live id_2048) traces {id_7, id_2048}
+ok    Merge(expired, dummy) traces to bottom
+ok    slot count 2^(h-1) next to count 1 traces {id_2, id_3}
+ok    slot count 2^(h-1)+1 traces to bottom
+ok    32 transitions of fan-in 1 decrypt correctly, smallest noise margin 5.9 bits
+horizon,2048,16,36,1,32,1,5.88,18.87,36.00
+PASSED: 0 failure(s)
+./test_rlwe 4096 16 65 2 2 32
+Ring-LWE: N0=4096 h=16 t=65537 log2Q=65 (2 primes) d=2 L=32 tag=1064960 bytes
+ok    Q > 2t(B_L + 1): log2 Q = 65.00, log2 B_L = 47.91
+ok    Dec(Enc(m)) = m, noise margin 36.3 bits
+ok    issuance signature verifies (ML-DSA-44, 2420 bytes)
+ok    signature on a modified tag is rejected
+ok    h'=16: id_5 traced after k = 0..15 hops
+ok    h'=16: Trace returns bottom after k = 16 and 17 hops
+ok    h'=8: id_5 traced after k = 0..7 hops
+ok    h'=8: Trace returns bottom after k = 8 and 9 hops
+ok    Merge(live id_7, expired id_9, dummy, live id_4096) traces {id_7, id_4096}
+ok    Merge(expired, dummy) traces to bottom
+ok    slot count 2^(h-1) next to count 1 traces {id_2, id_3}
+ok    slot count 2^(h-1)+1 traces to bottom
+ok    32 transitions of fan-in 2 decrypt correctly, smallest noise margin 7.5 bits
+horizon,4096,16,65,2,32,1,7.55,47.91,65.00
+PASSED: 0 failure(s)
+./test_rlwe 4096 16 97 2 4 32
+Ring-LWE: N0=4096 h=16 t=65537 log2Q=97 (2 primes) d=4 L=32 tag=1589248 bytes
+ok    Q > 2t(B_L + 1): log2 Q = 97.00, log2 B_L = 79.55
+ok    Dec(Enc(m)) = m, noise margin 68.0 bits
+ok    issuance signature verifies (ML-DSA-44, 2420 bytes)
+ok    signature on a modified tag is rejected
+ok    h'=16: id_5 traced after k = 0..15 hops
+ok    h'=16: Trace returns bottom after k = 16 and 17 hops
+ok    h'=8: id_5 traced after k = 0..7 hops
+ok    h'=8: Trace returns bottom after k = 8 and 9 hops
+ok    Merge(live id_7, expired id_9, dummy, live id_4096) traces {id_7, id_4096}
+ok    Merge(expired, dummy) traces to bottom
+ok    slot count 2^(h-1) next to count 1 traces {id_2, id_3}
+ok    slot count 2^(h-1)+1 traces to bottom
+ok    32 transitions of fan-in 4 decrypt correctly, smallest noise margin 16.2 bits
+horizon,4096,16,97,4,32,1,16.20,79.55,97.00
+PASSED: 0 failure(s)
+./test_rlwe 2048 10 36 1 1 32
+Ring-LWE: N0=2048 h=10 t=65537 log2Q=36 (1 primes) d=1 L=32 tag=184320 bytes
+ok    Q > 2t(B_L + 1): log2 Q = 36.00, log2 B_L = 18.53
+ok    Dec(Enc(m)) = m, noise margin 7.9 bits
+ok    issuance signature verifies (ML-DSA-44, 2420 bytes)
+ok    signature on a modified tag is rejected
+ok    h'=10: id_5 traced after k = 0..9 hops
+ok    h'=10: Trace returns bottom after k = 10 and 11 hops
+ok    h'=5: id_5 traced after k = 0..4 hops
+ok    h'=5: Trace returns bottom after k = 5 and 6 hops
+ok    Merge(live id_7, expired id_9, dummy, live id_2048) traces {id_7, id_2048}
+ok    Merge(expired, dummy) traces to bottom
+ok    slot count 2^(h-1) next to count 1 traces {id_2, id_3}
+ok    slot count 2^(h-1)+1 traces to bottom
+ok    32 transitions of fan-in 1 decrypt correctly, smallest noise margin 6.6 bits
+horizon,2048,10,36,1,32,1,6.60,18.53,36.00
+PASSED: 0 failure(s)
+./test_rlwe 4096 10 65 2 2 32
+Ring-LWE: N0=4096 h=10 t=65537 log2Q=65 (2 primes) d=2 L=32 tag=665600 bytes
+ok    Q > 2t(B_L + 1): log2 Q = 65.00, log2 B_L = 47.57
+ok    Dec(Enc(m)) = m, noise margin 36.7 bits
+ok    issuance signature verifies (ML-DSA-44, 2420 bytes)
+ok    signature on a modified tag is rejected
+ok    h'=10: id_5 traced after k = 0..9 hops
+ok    h'=10: Trace returns bottom after k = 10 and 11 hops
+ok    h'=5: id_5 traced after k = 0..4 hops
+ok    h'=5: Trace returns bottom after k = 5 and 6 hops
+ok    Merge(live id_7, expired id_9, dummy, live id_4096) traces {id_7, id_4096}
+ok    Merge(expired, dummy) traces to bottom
+ok    slot count 2^(h-1) next to count 1 traces {id_2, id_3}
+ok    slot count 2^(h-1)+1 traces to bottom
+ok    32 transitions of fan-in 2 decrypt correctly, smallest noise margin 12.6 bits
+horizon,4096,10,65,2,32,1,12.58,47.57,65.00
+PASSED: 0 failure(s)
+./test_rlwe 4096 10 97 2 4 32
+Ring-LWE: N0=4096 h=10 t=65537 log2Q=97 (2 primes) d=4 L=32 tag=993280 bytes
+ok    Q > 2t(B_L + 1): log2 Q = 97.00, log2 B_L = 79.21
+ok    Dec(Enc(m)) = m, noise margin 68.5 bits
+ok    issuance signature verifies (ML-DSA-44, 2420 bytes)
+ok    signature on a modified tag is rejected
+ok    h'=10: id_5 traced after k = 0..9 hops
+ok    h'=10: Trace returns bottom after k = 10 and 11 hops
+ok    h'=5: id_5 traced after k = 0..4 hops
+ok    h'=5: Trace returns bottom after k = 5 and 6 hops
+ok    Merge(live id_7, expired id_9, dummy, live id_4096) traces {id_7, id_4096}
+ok    Merge(expired, dummy) traces to bottom
+ok    slot count 2^(h-1) next to count 1 traces {id_2, id_3}
+ok    slot count 2^(h-1)+1 traces to bottom
+ok    32 transitions of fan-in 4 decrypt correctly, smallest noise margin 29.5 bits
+horizon,4096,10,97,4,32,1,29.55,79.21,97.00
+PASSED: 0 failure(s)
+./test_dj 10 3072
+Damgard-Jurik: h=10 |N|=3072 n=341 tag=4224 bytes
+ok    Dec(Enc(m)) = m
+ok    x^{N^s} with the factorization equals x^{N^s} without it, s = h and s = 1
+ok    issuance signature verifies
+ok    modified signature is rejected
+ok    h'=10: id_5 traced after k = 0..9 hops
+ok    h'=10: Trace returns bottom after k = 10 and 11 hops
+ok    h'=5: id_5 traced after k = 0..4 hops
+ok    h'=5: Trace returns bottom after k = 5 and 6 hops
+ok    Merge(live id_7, expired id_9, dummy, live id_341) traces {id_7, id_341}
+ok    Merge(expired, dummy) traces to bottom
+ok    512 copies of id_2 next to id_3 trace {id_2, id_3}
+ok    digit r^n at depth 0 traces to bottom
+PASSED: 0 failure(s)
+make[2]: Leaving directory 'src'

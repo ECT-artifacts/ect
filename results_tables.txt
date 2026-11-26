@@ -1,0 +1,67 @@
+% tab:costs (h = 10), mean ms
+\genwatermark{} (tag and signature) & 33.5 & 221 & 3.2 & 9.9 & 9.7 \\
+$\mathsf{Verify}$ (signature) & 12.3 & 0.10 & 0.86 & 3.4 & 3.3 \\
+\degrade & 24.8 & 1804 & 2.1 & 6.7 & 6.7 \\
+\mergewatermarks, $k=2$ & 22.3 & 1494 & 2.1 & 6.7 & 6.8 \\
+\degrade, online & --- & 302 & --- & --- & --- \\
+\mergewatermarks, $k=2$, online & --- & 0.27 & --- & --- & --- \\
+Rerandomizer, precomputed offline & --- & 1488 & --- & --- & --- \\
+\trace, every slot live & 1177 & 312 & 0.83 & 3.3 & 3.4 \\
+Live identifiers $K$ & 28 & 341 & 2048 & 4096 & 4096 \\
+Tag (KiB) & 0.75 & 4.125 & 180 & 650 & 970 \\
+Signature (bytes) & 706 & 64 & 2420 & 2420 & 2420 \\
+% runs: ElGamal 100 (trace 3), DJ 5 (trace 3), Ring-LWE 20
+% ElGamal degradation proof: prove 47.1 ms, verify 29.7 ms, 1412 bytes; merge k=10 22.6 ms
+% ElGamal trace sweep (min of runs): M<=1 K=1 66.9 ms; M<=1 K=2 68.2 ms; M<=1 K=4 71.1 ms; M<=1 K=8 76.7 ms; M<=1 K=12 84.1 ms; M<=1 K=16 102.3 ms; M<=1 K=20 156.1 ms; M<=1 K=24 362.3 ms; M<=1 K=28 1168.5 ms; M<=2 K=1 67.2 ms; M<=2 K=2 68.2 ms; M<=2 K=4 71.3 ms; M<=2 K=8 79.7 ms; M<=2 K=12 107.7 ms; M<=2 K=16 324.4 ms; M<=2 K=20 2225.4 ms; M<=2 K=24 19512.8 ms; M<=4 K=1 68.8 ms; M<=4 K=2 69.9 ms; M<=4 K=4 72.9 ms; M<=4 K=8 91.6 ms; M<=4 K=12 457.6 ms; M<=4 K=16 9569.2 ms
+% trace one identifier: DJ 307 ms, Ring-LWE 0.66, 3.0, 3.0 ms
+
+% tab:ledger (h = 10, 10^6 people, Merkle path of 20 hashes of 32 bytes)
+\multicolumn{6}{l}{\emph{Per payment}}\\
+Ciphertext $\hat w_S$, pruned (KiB) & 0.75 & 4.125 & 180 & 650 & 970 \\
+\degrade{} and \mergewatermarks{} (ms) & 47.1 & 3298 & 4.2 & 13.4 & 13.5 \\
+\quad online, after precomputation (ms) & --- & 302 & --- & --- & --- \\
+% DJ offline per payment: two rerandomizers, 2976 ms
+\multicolumn{6}{l}{\emph{Per person and epoch}}\\
+Entry, signature, path (KiB) & 2.064 & 4.812 & 183 & 653 & 973 \\
+Flag ciphertext and entry proof (KiB) & 34.2 & 135.1 & --- & --- & --- \\
+Verifying the entry proof (s) & 0.84 & 535 & --- & --- & --- \\
+\multicolumn{6}{l}{\emph{Per epoch}}\\
+Entries in the public store (GiB) & 1.37 & 3.99 & 174 & 622 & 927 \\
+Issuing the entries (core-hours) & 9.3 & 61 & 0.9 & 2.7 & 2.7 \\
+Entry proofs in the public store (GiB) & 32.6 & 128.8 & --- & --- & --- \\
+Proving the board (core-hours) & 20.9 & 22\,332 & --- & --- & --- \\
+% store: 10^6 * tag bytes (with the signature) / 2^30; hours: 10^6 * tag ms / 3.6e6
+% board rows: bytes of board_entry minus the entry; one core, one entry, times 10^6
+% ElGamal board_M1000000_t16: 5.45 h = 326.7 min
+% ElGamal verify_board_M1000000_t16: 0.76 h = 45.6 min
+
+% tab:deploy: h, slots, tag (KiB), degrade (ms), trace every slot (ms)
+Exp.\ ElGamal, $\mu=1$ & 10 & 28 & 0.75 & 24.8 & 1177 \\
+Damg{\aa}rd--Jurik & 10 & 341 & 4.125 & 1804 & 312 \\
+Damg{\aa}rd--Jurik & 20 & 161 & 7.875 & 8454 & 950 \\
+Damg{\aa}rd--Jurik & 50 & 62 & 19.125 & 63\,306 & 5572 \\
+Damg{\aa}rd--Jurik & 100 & 31 & 37.875 & 285\,813 & 26\,332 \\
+% DJ dj_h10_N3072_n341: degrade online 302 ms, merge k=2 online 0.27 ms, rerandomizer 1488 ms
+% DJ dj_h20_N3072_n161: degrade online 835 ms, merge k=2 online 0.70 ms, rerandomizer 7432 ms
+% DJ dj_h50_N3072_n62: degrade online 2874 ms, merge k=2 online 2.4 ms, rerandomizer 60\,156 ms
+% DJ dj_h100_N3072_n31: degrade online 5478 ms, merge k=2 online 4.9 ms, rerandomizer 281\,266 ms
+Ring-LWE, $d=1$ & 10 & 2048 & 180 & 2.1 & 0.83 \\
+Ring-LWE, $d=2$ & 10 & 4096 & 650 & 6.7 & 3.3 \\
+Ring-LWE, $d=4$ & 10 & 4096 & 970 & 6.7 & 3.4 \\
+Ring-LWE, $d=1$ & 16 & 2048 & 288 & 3.6 & 1.5 \\
+Ring-LWE, $d=2$ & 16 & 4096 & 1040 & 11.9 & 5.9 \\
+Ring-LWE, $d=4$ & 16 & 4096 & 1552 & 11.9 & 6.0 \\
+% Ring-LWE d=2 h=20: N0 4096, tag 1380 KiB (parameters only, not measured, not in the table)
+% Ring-LWE d=2 h=50: N0 4096, tag 4950 KiB (parameters only, not measured, not in the table)
+% Ring-LWE d=2 h=100: N0 8192, tag 30000 KiB (parameters only, not measured, not in the table)
+% Ring-LWE estimate linear_chain h=20: N0 2048, log2Q 40, log2 t 20, tag 400 KiB (0.391 MiB), not measured
+% Ring-LWE estimate two_state h=20: N0 4096, log2Q 69, log2 t 20, tag 1380 KiB (1.348 MiB), not measured
+% Ring-LWE estimate merge_heavy h=20: N0 4096, log2Q 100, log2 t 20, tag 2000 KiB (1.953 MiB), not measured
+% Ring-LWE estimate linear_chain h=50: N0 4096, log2Q 71, log2 t 50, tag 3550 KiB (3.467 MiB), not measured
+% Ring-LWE estimate two_state h=50: N0 4096, log2Q 99, log2 t 50, tag 4950 KiB (4.834 MiB), not measured
+% Ring-LWE estimate merge_heavy h=50: N0 8192, log2Q 131, log2 t 50, tag 13100 KiB (12.793 MiB), not measured
+% Ring-LWE estimate linear_chain h=100: N0 8192, log2Q 122, log2 t 100, tag 24400 KiB (23.828 MiB), not measured
+% Ring-LWE estimate two_state h=100: N0 8192, log2Q 150, log2 t 100, tag 30000 KiB (29.297 MiB), not measured
+% Ring-LWE estimate merge_heavy h=100: N0 8192, log2Q 182, log2 t 100, tag 36400 KiB (35.547 MiB), not measured
+
+% paragraph Measurements: core frequency median 3.5 GHz, min 3.2 GHz, max 4.0 GHz over 854 samples

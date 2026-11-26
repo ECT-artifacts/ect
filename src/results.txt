@@ -1,0 +1,299 @@
+Setup done. H=10 R_BASE=513 N=64
+
+=== Test 1: fresh tag, user 1 -> recovered at depth 0 ===
+  depth 0 -> user 1 (x1)
+
+=== Test 2: tag degraded h-1 times -> still recoverable at depth h-1 ===
+  depth 9 -> user 2 (x1)
+
+=== Test 3: tag degraded h times -> expires exactly at hop budget ===
+Trace: tag expired
+
+=== Test 4: dummy tag (b=0) -> trace returns expired ===
+Trace: tag expired
+
+=== Test 5: merge user 1 + user 3 at depth 0 -> both recovered ===
+  depth 0 -> user 1 (x1)
+  depth 0 -> user 3 (x1)
+
+=== Test 6: merge user 1 (depth 2) + user 3 (depth 0) -> depth-aware ===
+  depth 0 -> user 3 (x1)
+  depth 2 -> user 1 (x1)
+
+=== Test 7: NIZK proof on one Degrade step ===
+  NIZK verify:              PASS
+  Tamper test (expect FAIL): FAIL
+
+=== Test 8: block serialize / deserialize round-trip ===
+block #0  sender=1 -> receiver=3  amount=100  hops=1  hash=bcda..2e40
+  Round-trip NIZK verify: PASS  hops=1
+=== Ledger (2 blocks) ===
+block #0  sender=1 -> receiver=3  amount=100  hops=1  hash=2ff8..0168
+block #1  sender=3 -> receiver=7  amount=100  hops=1  hash=9133..5cae
+
+=== Test 9: authority signature on (c1_0, c2_0) ===
+  Fresh tag sig verify:                    PASS
+  After Degrade, sig cleared (expect FAIL): FAIL
+  Tamper c1_0 on fresh tag (expect FAIL):  FAIL
+
+=== Test 10: N=27, tag 6 users, all recovered at depth 0 ===
+  Traced users: 1, 6, 11, 16, 22, 27
+  depth 0 -> user 1 (x1)
+  depth 0 -> user 6 (x1)
+  depth 0 -> user 11 (x1)
+  depth 0 -> user 16 (x1)
+  depth 0 -> user 22 (x1)
+  depth 0 -> user 27 (x1)
+  All authority sigs valid: YES
+
+=== Test 11: N=27, 6 users at mixed depths -> depth-aware recovery ===
+  Expected: user 2@depth 0, user 7@depth 2, user 12@depth 4, user 17@depth 1, user 22@depth 3, user 26@depth 0
+  depth 0 -> user 2 (x1)
+  depth 0 -> user 26 (x1)
+  depth 1 -> user 17 (x1)
+  depth 2 -> user 7 (x1)
+  depth 3 -> user 22 (x1)
+  depth 4 -> user 12 (x1)
+
+=== Test 12: N=27, tag degraded h times -> unconditional expiry ===
+Trace: tag expired
+
+=== Test 13: N=27, dummy tags in merge -> only traceable user recovered ===
+  Expected: only user 8 recovered
+  depth 0 -> user 8 (x1)
+
+=== Test 14: full tag board, one ciphertext per enrolled user ===
+  Board entries:              64
+  Real / dummy entries:       6 / 58
+  All authority signatures:   PASS
+  Exact traced-set recovery:  PASS (6/6 real, 0 dummy)
+
+=========================================================
+  ECT Protocol Simulation                                
+  10 validators (all semi-honest)  |  quorum 10/10
+  64 users  |  hop budget H=10  |  N=64  R=513          
+=========================================================
+
+--- Phase 1: authority issues tagged coins ---
+  [block  0] issue  user  5  (traced)   : committed
+  [block  1] issue  user 15  (traced)   : committed
+  [block  2] issue  user 25  (traced)   : committed
+  [block  3] issue  user 40  (traced)   : committed
+  [block  4] issue  user 55  (traced)   : committed
+  [block  5] issue  user 60  (traced)   : committed
+  [block  6] issue  user  2  (dummy)    : committed
+  [block  7] issue  user  3  (dummy)    : committed
+  [block  8] issue  user  4  (dummy)    : committed
+
+--- Phase 2: coin spending ---
+  [block  9] spend  user  5 -> user  6  (depth 0->1)
+  [block 10] spend  user 15 -> user 16  (depth 0->1)
+  [block 11] spend  user 16 -> user 17  (depth 1->2)
+  [block 12] spend  user 25 -> user 26  (depth 0->1)
+  [block 13] spend  user 26 -> user 27  (depth 1->2)
+  [block 14] spend  user 27 -> user 28  (depth 2->3)
+
+--- Phase 3: committed ledger ---
+=== Ledger (15 blocks) ===
+block #0  sender=1 -> receiver=5  amount=10  hops=0  hash=e402..e5d5
+block #1  sender=1 -> receiver=15  amount=10  hops=0  hash=183f..697d
+block #2  sender=1 -> receiver=25  amount=10  hops=0  hash=988b..852d
+block #3  sender=1 -> receiver=40  amount=10  hops=0  hash=32d8..a949
+block #4  sender=1 -> receiver=55  amount=10  hops=0  hash=24da..cfcb
+block #5  sender=1 -> receiver=60  amount=10  hops=0  hash=d154..5750
+block #6  sender=1 -> receiver=2  amount=10  hops=0  hash=f6e7..4ee4
+block #7  sender=1 -> receiver=3  amount=10  hops=0  hash=2ceb..e79b
+block #8  sender=1 -> receiver=4  amount=10  hops=0  hash=bf04..2683
+block #9  sender=5 -> receiver=6  amount=5  hops=1  hash=e633..53be
+block #10  sender=15 -> receiver=16  amount=5  hops=1  hash=7e30..808c
+block #11  sender=16 -> receiver=17  amount=5  hops=2  hash=7266..7f3f
+block #12  sender=25 -> receiver=26  amount=5  hops=1  hash=cdfd..2e2a
+block #13  sender=26 -> receiver=27  amount=5  hops=2  hash=0956..cbac
+block #14  sender=27 -> receiver=28  amount=5  hops=3  hash=a5eb..8b0e
+
+--- Phase 4: authority trace ---
+  Scanning 15 committed blocks...
+  Active tagged users:
+  depth 0 -> user 40 (x1)
+  depth 0 -> user 55 (x1)
+  depth 0 -> user 60 (x1)
+Trace: tag expired
+Trace: tag expired
+Trace: tag expired
+  depth 1 -> user 5 (x1)
+  depth 2 -> user 15 (x1)
+  depth 3 -> user 25 (x1)
+
+--- Phase 5: validator report ---
+  V 1: accepted 15 / 15 blocks
+  V 2: accepted 15 / 15 blocks
+  V 3: accepted 15 / 15 blocks
+  V 4: accepted 15 / 15 blocks
+  V 5: accepted 15 / 15 blocks
+  V 6: accepted 15 / 15 blocks
+  V 7: accepted 15 / 15 blocks
+  V 8: accepted 15 / 15 blocks
+  V 9: accepted 15 / 15 blocks
+  V10: accepted 15 / 15 blocks
+  Mean per-validator verification: 2487.51 ms for 15 blocks
+
+--- Phase 6: expiry demonstration ---
+  user 7, tag degraded 10 times (full hop budget): Trace: tag expired
+
+--- Summary report ---
+
+  +-------------------------------------------------+
+  | ECT simulation summary                          |
+  +-------------------------------------------------+
+  | Blocks committed          :   15                |
+  | Traced users expected     :    6                |
+  | Traced users recovered    :    6                |
+  | Tags expired (h hops)     :    1                |
+  +-------------------------------------------------+
+  | Timing                                          |
+  |   Issue transactions      : 24922.60 ms          |
+  |   Spend transactions      : 28895.92 ms          |
+  |   Authority trace scan    : 18327.97 ms          |
+  |   Validator (all blocks)  : 24875.10 ms          |
+  |   Total scenario          : 107037.33 ms          |
+  +-------------------------------------------------+
+
+=========================================================
+  ECT Benchmarks  H=10  N=64  R=513
+  |p|=5807 bits  BENCH_RUNS=10  TRACE_RUNS=3  mult_max=1
+  background population capped at 16384 (no timed section reads it)
+=========================================================
+
+=== B1: Authority - Tag timing ===
+(10 runs)
+operation,mean_ms,sd_ms
+enc,509.693,107.222
+sign,253.192,54.153
+tag_total,762.885,159.656
+
+=== B2: User - Degrade and Merge timing ===
+(10 runs)
+
+-- B2a: Single Degrade --
+operation,mean_ms,sd_ms
+pow_q,60.408,18.557
+rerand,562.403,169.772
+nizk_prove,553.795,160.366
+degrade_total,1176.606,334.771
+
+-- B2b: Merge of k tagged coins --
+k,merge_ms,sd_ms
+2,582.314,77.765
+3,741.787,161.203
+4,980.538,231.538
+5,1025.549,377.307
+6,1118.200,333.489
+7,1648.977,882.577
+8,2015.487,836.192
+9,2247.941,1192.276
+10,1778.580,635.632
+
+-- B2c: Degrade after Merge (k=2..5) --
+k,degrade_after_merge_ms,sd_ms
+2,849.848,563.594
+3,1053.928,314.008
+4,1637.690,837.752
+5,1498.952,607.133
+6,802.093,262.193
+7,1317.032,855.859
+8,960.480,689.700
+9,752.041,469.370
+10,605.250,206.436
+
+-- B2d: Merge after Degrade (k=2..5, each coin degraded once) --
+k,merge_after_degrade_ms,sd_ms
+2,927.467,333.657
+3,2082.577,1141.846
+4,2302.777,841.335
+5,3764.228,1672.575
+6,5733.888,2236.768
+7,8818.852,2547.980
+8,11685.056,2445.020
+9,13790.369,3540.893
+10,16839.924,2349.241
+
+=== B3: Validator - Verify timing ===
+(10 runs)
+operation,mean_ms,sd_ms
+schnorr_verify,672.929,216.846
+nizk_verify,2056.391,410.914
+hash_check,0.441,0.008
+full_issue_block_verify,801.757,132.796
+full_spend_block_verify,1885.143,364.127
+
+=== B4: Communication and storage sizes ===
+
+Quantity                                    Bytes      KB
+---------------------------------------------------------
+1. Proof of degradation (NIZKProof m=1)     2904     2.84
+2. Tag ciphertext (c1+c2, any depth)        1452     1.42
+3. Public params pp (g,pkenc,pksig)         2178     2.13
+4. Watermark per block                      5810     5.67
+5. Total user storage H=10 hops            62436    60.97
+6. Trace input from ledger (c1+c2)          1452     1.42
+---------------------------------------------------------
+Block total (fixed)                         8192     8.00
+ECT overhead per block                      5810     5.67
+ECT/header ratio                             69.2x
+
+=== B5: ECT overhead vs chain population ===
+K_traced = log2(pop), capped at N=64.
+(3 runs)
+pop,k_traced,issue_ms,sd,spend_ms,sd,trace_ms,sd
+16,4,2099.818,96.407,2933.811,683.585,5004.302,1638.552
+1024,10,1731.621,479.683,2516.143,1292.567,2898.215,866.499
+65536,16,1609.678,371.048,2690.147,207.724,3015.333,364.542
+1048576,20,1916.061,463.986,3291.941,1149.768,3165.088,961.906
+
+=== B6: Vary K_traced, fixed pop=524288 ===
+(3 runs)
+k,issue_per_block_ms,sd,spend_per_block_ms,sd,trace_total_ms,sd,trace_per_user_ms,sd
+1,797.879,199.256,1082.579,126.255,1442.286,202.038,1442.286,202.038
+2,938.619,114.535,1319.929,158.996,1795.173,188.231,897.587,94.115
+4,1022.942,264.628,1634.733,247.606,2108.881,386.741,527.220,96.685
+8,1087.789,203.913,1403.750,256.981,1708.027,603.828,213.503,75.479
+12,636.979,129.477,895.375,190.398,1322.307,318.028,110.192,26.502
+16,499.960,73.636,675.182,64.484,1070.307,180.194,66.894,11.262
+18,492.472,102.693,772.385,158.292,1385.038,330.912,76.947,18.384
+20,484.461,18.248,698.684,156.344,1391.427,43.090,69.571,2.154
+
+=== B7: Vary depth (1->H=10), K=6 ===
+(3 runs)
+depth,degrade_hop_ms,sd,trace_ms,sd
+1,516.414,97.020,784.183,255.041
+2,509.766,88.580,833.069,343.902
+3,580.736,200.099,806.074,278.422
+4,545.496,144.208,746.837,129.784
+5,506.453,53.033,678.130,67.156
+6,522.993,103.633,883.321,343.497
+7,560.225,129.663,849.700,271.016
+8,570.871,128.515,729.470,111.157
+9,485.286,24.088,718.474,71.524
+10,562.311,123.793,119.687,11.719
+
+=== B8: Vary merge size k (1->10), then degrade ===
+(10 runs)
+k,merge_ms,sd,degrade_after_merge_ms,sd
+1,148.384,16.653,583.168,50.280
+2,274.949,22.155,549.993,42.807
+3,525.650,89.190,722.648,75.396
+4,825.478,132.068,810.635,150.743
+5,752.239,83.952,624.364,89.488
+6,1040.457,219.296,696.945,162.632
+7,1042.780,229.405,560.479,61.181
+8,1038.200,80.784,527.261,48.778
+9,1212.816,120.955,533.004,46.271
+10,1328.019,145.775,531.032,43.336
+
+=== B_nizk: NIZK prove/verify vs m (input set size) ===
+(10 runs)
+m,proof_bytes,prove_ms,prove_sd,verify_ms,verify_sd
+1,2904,243.852,25.157,314.774,49.077
+2,5808,1143.645,193.656,1675.287,202.317
+4,11616,3020.908,485.808,3677.810,574.949
+8,23232,6119.860,579.227,7046.626,1035.439

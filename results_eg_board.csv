@@ -1,0 +1,5 @@
+label,operation,runs,mean_ms,sd_ms,min_ms,bytes
+eg_h10_p3072_n28,board_entry,10,72.420,0.305,71.902,35790
+eg_h10_p3072_n28,verify_board_entry,10,800.977,3.003,796.394,35790
+eg_h10_p3072_n28,board_M100_t1,1,7252.675,0.000,7252.675,3579442
+eg_h10_p3072_n28,verify_board_M100_t1,1,1786.512,0.000,1786.512,3579442
